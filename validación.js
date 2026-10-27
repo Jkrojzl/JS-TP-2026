@@ -132,17 +132,21 @@ if (funciona_bien == false) {
 }
 
 // Envío del formulario mediante EmailJS.
+// Envío del formulario mediante EmailJS.
 try {
+    console.log("Intentando enviar el formulario...");
+
     await emailjs.sendForm(
         "service_3561mls",
         "template_8p7wkki",
         event.target
     );
 
+    console.log("EmailJS confirmó el envío.");
+
     alert("¡Mensaje enviado correctamente!");
 
     event.target.reset();
-
     grecaptcha.reset();
 
 } catch (error) {
