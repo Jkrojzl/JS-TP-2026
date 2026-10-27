@@ -126,6 +126,11 @@ console.log (respuesta_password); */
 Don GPT me dijo que hay que usar grecaptcha debido al captcha de google que linkeó
 Fabri en el html.  */
 
+if (grecaptcha.getResponse() == "") {
+    funciona_bien = false;
+    console.log("Debe completar el CAPTCHA");
+}
+
 // Si alguna validación falla, no enviamos el correo.
 if (funciona_bien == false) {
     return false;
