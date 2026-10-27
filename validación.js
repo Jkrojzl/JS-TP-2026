@@ -16,7 +16,13 @@ Luego tengo que ir validando los campos
 
 */
 
-function validar (event) {
+emailjs.init({
+    publicKey: "C4RSVbn4z9uO6lW9E"
+});
+
+async function validar (event) {
+
+event.preventDefault();
 
 let funciona_bien = true;
 
@@ -56,7 +62,44 @@ else {
 document.getElementById ("email_válido").textContent = respuesta_correo ;
 console.log (respuesta_correo);
 
-//Validación del correo
+//Validación del asunto
+
+    let asunto_ingresado;
+    let respuesta_asunto;
+    asunto_ingresado = document.getElementById("asunto").value.trim();
+
+    if (asunto_ingresado.length == 0) {
+        respuesta_asunto = "Debe ingresar un asunto";
+        funciona_bien = false;
+    } else if (asunto_ingresado.length < 3) {
+        respuesta_asunto = "El asunto es demasiado corto";
+        funciona_bien = false;
+    } else {
+        respuesta_asunto = "Asunto válido";
+    }
+    document.getElementById("asunto_válido").textContent = respuesta_asunto;
+    console.log (respuesta_asunto);
+
+    //Validación del mensaje
+
+    let mensaje_ingresado;
+    let respuesta_mensaje;
+    mensaje_ingresado = document.getElementById("mensaje").value.trim();
+
+    if (mensaje_ingresado.length == 0) {
+        respuesta_mensaje = "Debe ingresar un mensaje";
+        funciona_bien = false;
+    } else if (mensaje_ingresado.length < 20) {
+        respuesta_mensaje = "El mensaje es demasiado corto";
+        funciona_bien = false;
+    } else {
+        respuesta_mensaje = "Mensaje válido";
+    }
+    document.getElementById("mensaje_válido").textContent = respuesta_mensaje;
+    console.log (respuesta_mensaje);
+
+/*
+//Validación de la contraseña
 let password_ingresado;
 let respuesta_password;
 password_ingresado = document.getElementById ("password").value;
@@ -77,19 +120,36 @@ if (password_ingresado.length == 0) {
 }
 
 document.getElementById ("password_válido").textContent = respuesta_password ;
-console.log (respuesta_password);
+console.log (respuesta_password); */
 
 /*Validación del captcha
 Don GPT me dijo que hay que usar grecaptcha debido al captcha de google que linkeó
 Fabri en el html.  */
 
-if (grecaptcha.getResponse() == "") {
-    funciona_bien = false;
+// Si alguna validación falla, no enviamos el correo.
+if (funciona_bien == false) {
+    return false;
 }
 
-//Comprobación final. Si alguna cosa se volvió false se cancela todo el envío.
-if (funciona_bien == false) {
-    event.preventDefault();
+// Envío del formulario mediante EmailJS.
+try {
+    await emailjs.sendForm(
+        "service_3561mls",
+        "template_8p7wkki",
+        event.target
+    );
+
+    alert("¡Mensaje enviado correctamente!");
+
+    event.target.reset();
+
+    grecaptcha.reset();
+
+} catch (error) {
+    console.log("Error al enviar:", error);
+    alert("No se pudo enviar el mensaje. Intentá nuevamente.");
 }
+
+return false;
 
 }

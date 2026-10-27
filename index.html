@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario</title>
 
-  <script src="validación.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="validación.js" defer></script>
 
   <!-- Vinculamos tu archivo CSS externo -->
   <link rel="stylesheet" href="style.css">
@@ -25,21 +26,34 @@
       required que puso Fabri. Sino, no tiene sentido que detecte campos vacíos con el js -->
       <div class="campo">
         <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" placeholder="Ej. Nombre Apellido" required>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej. Nombre Apellido" required>
         <p id="nombre_válido" class="oculto"></p> <!--Agrego esta línea para que me muestre el error -->
       </div>
 
       <div class="campo">
         <label for="email">Correo electrónico</label>
-        <input type="email" id="email" placeholder="nombre@ejemplo.com" required>
+        <input type="email" id="email" name="email" placeholder="nombre@ejemplo.com" required>
         <p id="email_válido" class="oculto"></p>
       </div>
 
       <div class="campo">
+        <label for="asunto">Asunto</label>
+        <input type="text" id="asunto" name="asunto" placeholder="Ej. Consulta sobre el servicio" required>
+        <p id="asunto_válido" class="oculto"></p>
+      </div>
+
+    <div class="campo">
+    <label for="mensaje">Mensaje</label>
+    <textarea id="mensaje" name="mensaje" required></textarea>
+    <p id="mensaje_válido" class="oculto"></p>
+    </div>
+<!-- 
+    
+      <div class="campo">
         <label for="password">Contraseña</label>
         <input type="password" id="password" required>
         <p id="password_válido" class="oculto"></p>
-      </div>
+      </div>   -->
 
       <!-- Widget de reCAPTCHA v2 -->
       <div class="campo-recaptcha">
@@ -53,3 +67,8 @@
 </body>
 
 </html>
+
+
+service_3561mls
+template_8p7wkki
+public key: C4RSVbn4z9uO6lW9E
